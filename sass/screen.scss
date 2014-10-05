@@ -1,0 +1,130 @@
+@import "base";
+$primary-background: #eee;
+$orange: #FFA100;
+$blue: #65CFE9;
+$red: #E05206;
+*,
+*:after,
+*:before {
+  @include box-sizing(border-box);
+}
+*::-webkit-input-placeholder {
+    font-weight: lighter;
+    font-style: italic;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    font-weight: lighter;
+    font-style: italic;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    font-weight: lighter;
+    font-style: italic;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    font-weight: lighter;
+    font-style: italic;
+}
+body {
+	margin: 0;
+	overflow:auto;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	text-align: center;
+	padding: 0px;
+	font-family: 'Raleway', sans-serif;
+	.wrapper {
+		position: relative;
+		margin-top: 0px;
+		width: 85%;
+		height: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		padding-bottom: 10px;
+		h1 {
+			color: $orange;
+			font-size: 30px;
+		}
+		.mapWrapper {
+			width: 100%;
+			height: 400px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.boxWrapper {
+			margin-top: 20px;
+			width: 100%;
+			border: 1px solid #eee;
+			background: #eee;
+			padding: 10px;
+			@include border-radius(3px);
+			strong {
+				font-size: 20px;
+				display: block;
+				color: $red;
+			}
+			.label {
+				display: inline-block;
+				width: 15%;
+				text-align: right;
+			}
+			input[type=text] {
+				margin-left: 5px;
+				margin-top: 8px;
+				margin-right: 8px;
+				border: 1px solid #eee;
+				border-radius: 5px;
+				width: 30%;
+				font-size: 15px;
+				padding: 4px;
+				padding-left:10px;
+			}
+			button {
+				padding: 4px;
+				font-size: 15px;
+				background: $blue;
+				border: 1px solid $blue;
+				border-radius: 5px;
+				color: #fff;
+				cursor: pointer;
+				width: 80px;
+			}
+			#fakeButton {
+				padding: 4px;
+				font-size: 15px;
+				border-radius: 5px;
+				color: #fff;
+				background: #eee;
+				border: none;
+				cursor: default;
+			}
+			#checkboxWrapper {
+				margin-left: 5px;
+				margin-top: 8px;
+				margin-right: 8px;
+				width: 30%;
+				font-size: 15px;
+				padding: 4px;
+				text-align: left;	
+				display: inline-block;
+				#exitCheckbox {
+					margin-left: 15px;
+				}
+			}
+
+		}
+		#getResultButton {
+			margin-top: 20px;
+			font-size: 30px;
+			color: white;
+			background: $orange;
+			border: 1px solid $orange;
+			border-radius: 5px;
+			padding: 14px 35px;
+			cursor: pointer;
+		}
+	}
+}

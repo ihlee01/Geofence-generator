@@ -1,0 +1,213 @@
+/* Usage
+.button {
+  @include border-radius(5px);
+}
+
+.submit-button {
+  @include border-top-radius(10px);
+  @include border-right-radius(8px);
+  @include border-bottom-radius(10px);
+  @include border-left-radius (6px);
+}
+*/
+/* Usage
+.article-heading {
+  @include opacity(0.8);
+}
+*/
+/* Usage
+.page-wrap {
+  width: 75%;
+  @include breakpoint(large) { width: 60%; }
+  @include breakpoint(medium) { width: 80%; }
+  @include breakpoint(small) { width: 95%; }
+}
+-----------------------------------------------
+Output
+
+.page-wrap {
+  width: 75%;
+}
+@media (min-width: 64.375em) {
+  .page-wrap {
+    width: 60%;
+  }
+}
+@media (min-width: 50em) {
+  .page-wrap {
+    width: 80%;
+  }
+}
+@media (min-width: 37.5em) {
+  .page-wrap {
+    width: 95%;
+  }
+}
+*/
+/* Usage
+.abs {
+  @include abs-pos(10px, 10px, 5px, 15px);
+}
+*/
+/* Usage
+body {
+  @include font-size(16);
+}
+*/
+/* Usage
+.text-truncate {
+  @include text-truncate;
+}
+*/
+/* line 6, ../sass/screen.scss */
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 11, ../sass/screen.scss */
+*::-webkit-input-placeholder {
+  font-weight: lighter;
+  font-style: italic;
+}
+
+/* line 15, ../sass/screen.scss */
+*:-moz-placeholder {
+  /* FF 4-18 */
+  font-weight: lighter;
+  font-style: italic;
+}
+
+/* line 20, ../sass/screen.scss */
+*::-moz-placeholder {
+  /* FF 19+ */
+  font-weight: lighter;
+  font-style: italic;
+}
+
+/* line 25, ../sass/screen.scss */
+*:-ms-input-placeholder {
+  /* IE 10+ */
+  font-weight: lighter;
+  font-style: italic;
+}
+
+/* line 30, ../sass/screen.scss */
+body {
+  margin: 0;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  text-align: center;
+  padding: 0px;
+  font-family: 'Raleway', sans-serif;
+}
+/* line 39, ../sass/screen.scss */
+body .wrapper {
+  position: relative;
+  margin-top: 0px;
+  width: 85%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10px;
+}
+/* line 47, ../sass/screen.scss */
+body .wrapper h1 {
+  color: #FFA100;
+  font-size: 30px;
+}
+/* line 51, ../sass/screen.scss */
+body .wrapper .mapWrapper {
+  width: 100%;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 57, ../sass/screen.scss */
+body .wrapper .boxWrapper {
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid #eee;
+  background: #eee;
+  padding: 10px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-clip: padding-box;
+  /* stops bg color from leaking outside the border: */
+}
+/* line 64, ../sass/screen.scss */
+body .wrapper .boxWrapper strong {
+  font-size: 20px;
+  display: block;
+  color: #E05206;
+}
+/* line 69, ../sass/screen.scss */
+body .wrapper .boxWrapper .label {
+  display: inline-block;
+  width: 15%;
+  text-align: right;
+}
+/* line 74, ../sass/screen.scss */
+body .wrapper .boxWrapper input[type=text] {
+  margin-left: 5px;
+  margin-top: 8px;
+  margin-right: 8px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  width: 30%;
+  font-size: 15px;
+  padding: 4px;
+  padding-left: 10px;
+}
+/* line 85, ../sass/screen.scss */
+body .wrapper .boxWrapper button {
+  padding: 4px;
+  font-size: 15px;
+  background: #65CFE9;
+  border: 1px solid #65CFE9;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  width: 80px;
+}
+/* line 95, ../sass/screen.scss */
+body .wrapper .boxWrapper #fakeButton {
+  padding: 4px;
+  font-size: 15px;
+  border-radius: 5px;
+  color: #fff;
+  background: #eee;
+  border: none;
+  cursor: default;
+}
+/* line 104, ../sass/screen.scss */
+body .wrapper .boxWrapper #checkboxWrapper {
+  margin-left: 5px;
+  margin-top: 8px;
+  margin-right: 8px;
+  width: 30%;
+  font-size: 15px;
+  padding: 4px;
+  text-align: left;
+  display: inline-block;
+}
+/* line 113, ../sass/screen.scss */
+body .wrapper .boxWrapper #checkboxWrapper #exitCheckbox {
+  margin-left: 15px;
+}
+/* line 119, ../sass/screen.scss */
+body .wrapper #getResultButton {
+  margin-top: 20px;
+  font-size: 30px;
+  color: white;
+  background: #FFA100;
+  border: 1px solid #FFA100;
+  border-radius: 5px;
+  padding: 14px 35px;
+  cursor: pointer;
+}
