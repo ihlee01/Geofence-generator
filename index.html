@@ -1,174 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Geofence Example</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/screen.css" media="screen, projection"/>
-	<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Geofence Example</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/screen.css" media="screen, projection"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+  <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<div class="wrapper">
-		<h1>Geofence Example</h1>
-		
-		<div class="mapWrapper" id="mapWrapper"></div>
-		<div class="boxWrapper">
-			<center>
-				<strong>GEOFENCE PROFILE</strong>
-				<div id="idBox">
-					<div class="label">Unique ID: </div>
-					<input type="text" id="idInput"/>
-					<button id="fakeButton">&nbsp</button>
-				</div>
-				<div id="timeBox">
-					<div class="label">Expiration Time: </div>
-					<input type="text" id="timeInput" placeholder="Unit is Seconds"/>
-					<button id="fakeButton">&nbsp</button>
-				</div>	
-				<div id="locationBox">
-					<div class="label">Search Location: </div>
-					<input type="text" id="locationInput" placeholder="Default is your current location"/>
-					<button id="locationSearchButton">SEARCH</button>
-				</div>
-				<div id="radiusBox">
-					<div class="label">Set Radius: </div>
-					<input type="text" id="radiusInput" placeholder="Default is 4000"/>
-					<button id="setRadiusButton">SET</button>
-				</div>
-				<div id="transBox">
-					<div class="label">Transition Type: </div>
-					<div id="checkboxWrapper">
-						<input type="checkbox" id="entryCheckbox" name="type" value="entry">ENTRY</input>
-						<input type="checkbox" id="exitCheckbox" name="type" value="exit">EXIT</input>
-					</div>
-					<button id="fakeButton">&nbsp</button>
-			</center>
-		</div>
-		<center><button id="getResultButton">GET RESULT</button></center>
-	</div>
+  <div class="wrapper">
+    <h1>Geofence Example</h1>
+    
+    <div class="mapWrapper" id="mapWrapper"></div>
+    <div class="boxWrapper">
+      <center>
+        <strong>GEOFENCE PROFILE</strong>
+        <div id="idBox">
+          <div class="label">Unique ID: </div>
+          <input type="text" id="idInput"/>
+          <button id="fakeButton">&nbsp</button>
+        </div>
+        <div id="timeBox">
+          <div class="label">Expiration Time: </div>
+          <input type="text" id="timeInput" placeholder="Unit is Seconds"/>
+          <button id="fakeButton">&nbsp</button>
+        </div>  
+        <div id="locationBox">
+          <div class="label">Search Location: </div>
+          <input type="text" id="locationInput" placeholder="Default is your current location"/>
+          <button id="locationSearchButton">SEARCH</button>
+        </div>
+        <div id="radiusBox">
+          <div class="label">Set Radius: </div>
+          <input type="text" id="radiusInput" placeholder="Default is 4000"/>
+          <button id="setRadiusButton">SET</button>
+        </div>
+        <div id="transBox">
+          <div class="label">Transition Type: </div>
+          <div id="checkboxWrapper">
+            <input type="checkbox" id="entryCheckbox" name="type" value="entry">ENTRY</input>
+            <input type="checkbox" id="exitCheckbox" name="type" value="exit">EXIT</input>
+          </div>
+          <button id="fakeButton">&nbsp</button>
+      </center>
+    </div>
+    <center><button id="resultButton">GET RESULT</button></center>
+  </div>
 
 
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8vND-U0ebB8_AAjf9r2k_JP1aNh2wlO8">
-    </script>
-    <script type="text/javascript">
-	    var myCenter;
-	    var mapOptions;
-	    var map;
-	    var marker;
-	    var geoFence;
-	    var geocoder = new google.maps.Geocoder();
-	    var result = {}; //Result obj
-	    result.radius = 4000; //Default radius is 4000;
-    	$(document).ready(function() {
-    		//Location Search
-    		$("#locationSearchButton").click(function() {
-				updateLocation();
-    		});
-    		$("#locationInput").keyup(function(e){
-    			if(e.keyCode == 13) {
-    				updateLocation();
-    			}
-    		});
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  
+  <!-- This is needed for using Google Map API. You have to generate your own key. -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8vND-U0ebB8_AAjf9r2k_JP1aNh2wlO8"></script>
+  <script type="text/javascript">
+    var myCenter;
+    var mapOptions;
+    var map;
+    var marker;
+    var geoFence;
+    var geocoder = new google.maps.Geocoder();
+    var result = {}; //Result obj
+    result.radius = 4000; //Default radius is 4000;
 
-    		//Set Radius
-    		$("#setRadiusButton").click(function() {
-    			result.radius = parseInt($("#radiusInput").val());
-    			geoFence.setRadius(result.radius);
-    		});
-    		$("#radiusInput").keyup(function(e) {
-    			if(e.keyCode == 13) {
-    				result.radius = parseInt($("#radiusInput").val());
-    				geoFence.setRadius(result.radius);
-    			}
-    		});
+    $(document).ready(function() {
+      //Location Search
+      $("#locationSearchButton").click(function() {
+      updateLocation();
+      });
+      $("#locationInput").keyup(function(e){
+        if(e.keyCode == 13) {
+          updateLocation();
+        }
+      });
 
-    		//Set Expiration Time
-    		$("#setTimeButton").click(function() {
-    			result.expTime = parseInt($("#timeInput").val()) * 1000; //ms -> s
-    		})
-    		$("#timeInput").keyup(function(e) {
-    			if(e.keyCode == 13) {
-	    			result.expTime = parseInt($("#timeInput").val()) * 1000; //ms -> s
-	    			console.log(result);
-	    		}
-    		});
-    	});
-    	function updateLocation() {
-    		var new_location = $('#locationInput').val();
-    		if(new_location) {
-	    		getCoordinates(new_location, function(coords) {
-	    			result.latitude = coords[0];
-	    			result.longitude = coords[1];
-	    			myCenter = new google.maps.LatLng(coords[0], coords[1]);
-	    			updateMap(myCenter);
-	    		});
-    		}
-    	}
-    	function updateMap (myCenter) {
-    		map.setCenter(myCenter);
-    		marker.setPosition(myCenter);
-    		geoFence.setCenter(myCenter);
-    	}
-    	function getCoordinates (address, callback) {
-    		var coordinates;
-    		geocoder.geocode({ address: address}, function (results, status) {
-    			if(results[0]) {
-	    			coords_obj = results[0].geometry.location;
-	    			coordinates = [coords_obj.k, coords_obj.B];
-	    			callback(coordinates);
-	    		}
-	    		else {
-	    			alert("Please search for valid locations");
-	    		}
-    		});
-    	}
-      	function initialize() {
-      		//Start with the current location
-      		if (navigator.geolocation) {
-      		    navigator.geolocation.getCurrentPosition(function (position) {
-      		        //Current coordinates
-      		        var myLat = position.coords.latitude;
-      		        var myLong = position.coords.longitude;
-      		        myCenter = new google.maps.LatLng(myLat, myLong);
-      		        
-      		        //Result update
-      		        result.latitude = myLat;
-      		        result.longtitude = myLong;
-      		        
-      		        //Generate map
-      		        mapOptions = {
-      		          center: myCenter,
-      		          zoom: 12
-      		        };
-      		        map = new google.maps.Map(document.getElementById('mapWrapper'), mapOptions);
-      		        
-      		        //Set up marker
-      		        marker = new google.maps.Marker({
-						position:myCenter,
-      		        	animation:google.maps.Animation.BOUNCE
-      		        });
-      		        marker.setMap(map);
+      //Set Radius
+      $("#setRadiusButton").click(function() {
+        result.radius = parseInt($("#radiusInput").val());
+        geoFence.setRadius(result.radius);
+      });
+      $("#radiusInput").keyup(function(e) {
+        if(e.keyCode == 13) {
+          result.radius = parseInt($("#radiusInput").val());
+          geoFence.setRadius(result.radius);
+        }
+      });
 
-      		        //Set up geofence
-      		        geoFence = new google.maps.Circle({
-      		        	center: myCenter,
-      		        	radius : result.radius,
-      		        	strokeColor: "#82CC31", 
-      		        	strokeOpacity: 1,
-      		        	strokeWeight: 2,
-      		        	fillColor: "#8DEE24",
-      		        	fillOpacity: 0.4
-      		        });
-      		        geoFence.setMap(map);
-      		    });
-      		} 
-      		else {
-      		    alert("Geolocation is not supported by this browser.");
-      		}
-      	}
-      	google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+      //Set Expiration Time
+      $("#setTimeButton").click(function() {
+        result.expTime = parseInt($("#timeInput").val()) * 1000; //ms -> s
+      })
+      $("#timeInput").keyup(function(e) {
+        if(e.keyCode == 13) {
+          result.expTime = parseInt($("#timeInput").val()) * 1000; //ms -> s
+          console.log(result);
+        }
+      });
+      
+      //Get result
+      $("#resultButton").click(function() {
+        var id = $("#idInput").val(); 
+        var expTime = $("#timeInput").val();
+        
+        //Input validity check
+        if(!id) {
+          alert("Please specify an unique ID for the geofence");
+          return false;
+        }
+        if(!isInt(expTime)) {
+          alert("Invalid Expiration Time");
+          return false;
+        }
+
+        //update result obj
+        result.id = id;
+        result.expTime = parseInt(expTime) * 1000; //Convert it to ms
+
+        //Transition Type - 1: Entry, 2: Exit, 3: Both
+        if($('#entryCheckbox').is(":checked") && $('#exitCheckbox').is(":checked")) {
+          result.transitionType = 3;
+        }
+        else if($('#entryCheckbox').is(":checked")) {
+          result.transitionType = 1;
+        }
+        else if($('#exitCheckbox').is(":checked")) {
+          result.transitionType = 2;
+        }
+        else {
+          alert('Please select the transition type');
+          return false;
+        }
+        
+        //Do something with result;          
+        console.log(result);
+
+      })
+    });
+  function isInt(value) {
+    return !isNaN(value) && parseInt(Number(value)) == value && !isNaN(parseInt(value, 10));
+  }
+    function updateLocation() {
+      var new_location = $('#locationInput').val();
+      if(new_location) {
+        getCoordinates(new_location, function(coords) {
+          result.latitude = coords[0];
+          result.longitude = coords[1];
+          myCenter = new google.maps.LatLng(coords[0], coords[1]);
+          updateMap(myCenter);
+        });
+      }
+    }
+    function updateMap (myCenter) {
+      map.setCenter(myCenter);
+      marker.setPosition(myCenter);
+      geoFence.setCenter(myCenter);
+    }
+    function getCoordinates (address, callback) {
+      var coordinates;
+      geocoder.geocode({ address: address}, function (results, status) {
+        if(results[0]) {
+          coords_obj = results[0].geometry.location;
+          coordinates = [coords_obj.k, coords_obj.B];
+          callback(coordinates);
+        }
+        else {
+          alert("Please search for valid locations");
+        }
+      });
+    }
+    function initialize() {
+      //Start with the current location
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+              //Current coordinates
+              var myLat = position.coords.latitude;
+              var myLong = position.coords.longitude;
+              myCenter = new google.maps.LatLng(myLat, myLong);
+              
+              //Result update
+              result.latitude = myLat;
+              result.longitude = myLong;
+              
+              //Generate map
+              mapOptions = {
+                center: myCenter,
+                zoom: 12
+              };
+              map = new google.maps.Map(document.getElementById('mapWrapper'), mapOptions);
+              
+              //Set up marker
+              marker = new google.maps.Marker({
+                position:myCenter,
+                animation:google.maps.Animation.BOUNCE
+              });
+              marker.setMap(map);
+
+              //Set up geofence
+              geoFence = new google.maps.Circle({
+                center: myCenter,
+                radius : result.radius,
+                strokeColor: "#82CC31", 
+                strokeOpacity: 1,
+                strokeWeight: 2,
+                fillColor: "#8DEE24",
+                fillOpacity: 0.4
+              });
+              geoFence.setMap(map);
+          });
+      } 
+      else {
+          alert("Geolocation is not supported by this browser.");
+      }
+    }
+    //Initialize map
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
 </body>
 </html>

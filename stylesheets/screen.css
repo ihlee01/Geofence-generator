@@ -201,7 +201,7 @@ body .wrapper .boxWrapper #checkboxWrapper #exitCheckbox {
   margin-left: 15px;
 }
 /* line 119, ../sass/screen.scss */
-body .wrapper #getResultButton {
+body .wrapper #resultButton {
   margin-top: 20px;
   font-size: 30px;
   color: white;
